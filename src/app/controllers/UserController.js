@@ -2,7 +2,7 @@ import User from '../models/User';
 
 class UserController {
   async store(req, res) {
-    const { email, password_hash, passwordConfirmation } = req.body;
+    const { email, password, passwordConfirmation } = req.body;
 
     const userExists = await User.findOne({
       where: {
@@ -14,7 +14,7 @@ class UserController {
       return res.status(401).json({ error: 'Email already in use' });
     }
 
-    if (password_hash !== passwordConfirmation) {
+    if (password !== passwordConfirmation) {
       return res.status(401).json({ error: "Passwords aren't equal" });
     }
 
